@@ -19,10 +19,29 @@ public class TestTypes {
 	private String testName;
 	
 	@Column
+	private int questionCount;
+	
+	@Column
 	private Boolean enable;
+
+	public int getQuestionCount() {
+		return questionCount;
+	}
+
+	public void setQuestionCount(int questionCount) {
+		this.questionCount = questionCount;
+	}
 
 	public Integer getId() {
 		return id;
+	}
+
+	public TestTypes(Integer id, String testName, int questionCount, Boolean enable) {
+		super();
+		this.id = id;
+		this.testName = testName;
+		this.questionCount = questionCount;
+		this.enable = enable;
 	}
 
 	public void setId(Integer id) {
@@ -47,7 +66,8 @@ public class TestTypes {
 
 	@Override
 	public String toString() {
-		return "TestType [id=" + id + ", testName=" + testName + ", enable=" + enable + "]";
+		return "TestTypes [id=" + id + ", testName=" + testName + ", questionCount=" + questionCount + ", enable="
+				+ enable + "]";
 	}
 
 	@Override
@@ -56,6 +76,7 @@ public class TestTypes {
 		int result = 1;
 		result = prime * result + ((enable == null) ? 0 : enable.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + questionCount;
 		result = prime * result + ((testName == null) ? 0 : testName.hashCode());
 		return result;
 	}
@@ -79,19 +100,14 @@ public class TestTypes {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (questionCount != other.questionCount)
+			return false;
 		if (testName == null) {
 			if (other.testName != null)
 				return false;
 		} else if (!testName.equals(other.testName))
 			return false;
 		return true;
-	}
-
-	public TestTypes(Integer id, String testName, Boolean enable) {
-		super();
-		this.id = id;
-		this.testName = testName;
-		this.enable = enable;
 	}
 
 	public TestTypes() {

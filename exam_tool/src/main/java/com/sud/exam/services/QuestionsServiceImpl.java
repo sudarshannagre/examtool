@@ -18,6 +18,9 @@ public class QuestionsServiceImpl implements QuestionsService{
 	@Autowired
 	QuestionsRepository questionRepo; 
 	
+	@Autowired
+	TestTypesServiceImpl testTypesService;
+	
 	@Override
 	public List<Questions> getQuestionsList() throws RecordNotFoundException {
 		List<Questions> questionsList = questionRepo.findAll();
@@ -43,6 +46,7 @@ public class QuestionsServiceImpl implements QuestionsService{
 		Optional<Questions> question = questionRepo.findById(id);
 		if(question.isPresent()) {
 			questionRepo.delete(question.get());
+			testTypesService.updateCount(question.get().getTestType(), -1);
 			return question.get();
 		}else {
 			throw new RecordNotFoundException(ExceptionConstants.RECORD_NOT_FOUND+id);
@@ -53,6 +57,7 @@ public class QuestionsServiceImpl implements QuestionsService{
 	public Questions createQuestion(Questions questuion) throws SQLException {
 		Questions createdQuestion = questionRepo.save(questuion);
 		if(createdQuestion!=null) {
+			testTypesService.updateCount(createdQuestion.getTestType(), 1);
 			return createdQuestion;
 		}else {
 			throw new SQLException(ExceptionConstants.WRONG_REQUEST);

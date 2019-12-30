@@ -15,5 +15,7 @@ public interface TestTypesService {
 	public TestTypes createTest(TestTypes testType) throws SQLException;
 	
 	public TestTypes deleteTest(int id) throws RecordNotFoundException;
+	
+	public void updateCount(TestTypes testTypes,int count);
 
 }

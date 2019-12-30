@@ -31,6 +31,11 @@ public class ExamToolServiceExceptions {
 		return exception(HttpStatus.METHOD_NOT_ALLOWED, new ErrorResponse("Method Not Allowed", e.getMessage()));
 	}
 	
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException u){
+		return exception(HttpStatus.NOT_FOUND, new ErrorResponse("User Not Found", u.getMessage()));
+	}
+	
 	private ResponseEntity<ErrorResponse> exception(HttpStatus status, ErrorResponse e){
 		return new ResponseEntity<>(e,status);
 	}

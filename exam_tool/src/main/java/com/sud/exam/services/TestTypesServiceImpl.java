@@ -57,5 +57,14 @@ public class TestTypesServiceImpl implements TestTypesService{
 		throw new RecordNotFoundException(ExceptionConstants.RECORD_NOT_FOUND+id);
 	}
 
+	@Override
+	public void updateCount(TestTypes testTypes,int count) {
+		Optional<TestTypes> currentTestCount = testTypesRepo.findById(testTypes.getId()); 
+		if(currentTestCount.isPresent()) {
+			testTypes = currentTestCount.get();
+			testTypes.setQuestionCount(currentTestCount.get().getQuestionCount()+count);
+			testTypesRepo.save(testTypes);
+		}
+	}
 	
 }
